@@ -177,7 +177,7 @@ window.DOCS_MANIFEST = {
         {
           "name": "wuolah-prob9bol2.m",
           "path": "Fisica nuclear experimental/Practicas/wuolah-prob9bol2.m",
-          "size": 9515
+          "size": 9258
         }
       ]
     },
