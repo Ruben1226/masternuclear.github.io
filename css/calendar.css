@@ -1,0 +1,210 @@
+/* ==========================================================================
+   CALENDARIO VISUAL: VISTA MES, VISTA CURSO (GANTT) Y AGENDA (CALENDAR.CSS)
+   Cada asignatura pone su color en --c; el TIPO de evento se distingue por el relleno:
+     presencial = sólido · clase a distancia = tenue con borde · examen = contorno + bandera
+   ========================================================================== */
+
+.section-calendar { margin-bottom: 4rem; }
+
+.calendar-shell {
+  background: var(--bg-surface); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl); padding: 1.5rem; box-shadow: var(--shadow-sm);
+}
+
+/* ---------------- Barra superior ---------------- */
+.calendar-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem 1rem; margin-bottom: 1rem; }
+.calendar-month-year { flex: 1; min-width: 9rem; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.01em; }
+.cal-nav { display: flex; align-items: center; gap: 0.4rem; }
+.cal-nav.is-hidden { display: none; }
+
+.seg-control { display: inline-flex; padding: 0.2rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-full); }
+.seg-control button { min-height: 34px; padding: 0.3rem 1.1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); transition: all var(--transition-fast); }
+.seg-control button:hover { color: var(--text-primary); }
+.seg-control button.active { background: var(--bg-surface); color: var(--accent-primary); box-shadow: var(--shadow-sm); }
+
+/* ---------------- Leyenda ---------------- */
+.cal-legend { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem 1.5rem; margin-bottom: 1.1rem; }
+.legend-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.legend-chip {
+  display: inline-flex; align-items: center; gap: 0.45rem; min-height: 32px; padding: 0.25rem 0.75rem;
+  font-size: 0.78rem; font-weight: 600; color: var(--text-primary);
+  background: color-mix(in srgb, var(--c) 10%, var(--bg-surface));
+  border: 1px solid color-mix(in srgb, var(--c) 38%, var(--border-subtle));
+  border-radius: var(--radius-full); transition: all var(--transition-fast);
+}
+.legend-chip i { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--c); }
+.legend-chip:hover { border-color: var(--c); }
+.legend-chip.is-off { background: transparent; border-style: dashed; color: var(--text-tertiary); }
+.legend-chip.is-off i { background: var(--border-medium); }
+
+.legend-key { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1rem; font-size: 0.75rem; color: var(--text-secondary); }
+.legend-key span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.key-swatch { --c: var(--text-secondary); display: inline-flex; align-items: center; justify-content: center; width: 1.6rem; height: 0.9rem; border-radius: 4px; }
+.key-presencial { background: var(--c); }
+.key-clase { background: color-mix(in srgb, var(--c) 16%, var(--bg-surface)); box-shadow: inset 3px 0 0 var(--c); }
+.key-examen { background: var(--bg-surface); box-shadow: inset 0 0 0 2px var(--c); color: var(--c); }
+.key-examen .icon { width: 0.6rem; height: 0.6rem; }
+
+/* ---------------- Disposición general ---------------- */
+.calendar-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr); gap: 1.75rem; align-items: start; }
+.calendar-main { min-width: 0; }
+
+/* ====================================================================
+   VISTA MES
+   ==================================================================== */
+.cal-month { --lane-h: 1.4rem; --lane-gap: 0.2rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-surface); }
+.cal-dow { display: grid; grid-template-columns: repeat(7, 1fr); background: var(--bg-surface-elevated); border-bottom: 1px solid var(--border-subtle); }
+.cal-dow span { text-align: center; padding: 0.55rem 0; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; color: var(--text-tertiary); }
+
+.cal-week { position: relative; min-height: max(4.6rem, calc(2.2rem + var(--lanes) * (var(--lane-h) + var(--lane-gap)) + 0.5rem)); }
+.cal-week + .cal-week { border-top: 1px solid var(--border-subtle); }
+.cal-week-days { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(7, 1fr); }
+
+.cal-day {
+  position: relative; display: flex; align-items: flex-start; justify-content: flex-start;
+  height: 100%; min-height: 0; padding: 0.35rem 0.45rem; text-align: left;
+  border: 0; border-left: 1px solid var(--border-subtle); border-radius: 0; background: transparent;
+  cursor: pointer; transition: background var(--transition-fast);
+}
+.cal-day:first-child { border-left: 0; }
+.cal-day:hover { background: var(--bg-surface-elevated); }
+.cal-day.weekend { background: color-mix(in srgb, var(--bg-surface-elevated) 60%, transparent); }
+.cal-day.other-month .cal-day-num { opacity: 0.32; }
+.cal-day.selected { z-index: 1; background: var(--accent-primary-light); box-shadow: inset 0 0 0 2px var(--accent-primary); }
+.cal-day:focus-visible { z-index: 1; }
+
+.cal-day-num { display: inline-flex; align-items: center; justify-content: center; min-width: 1.6rem; height: 1.6rem; border-radius: 50%; font-size: 0.82rem; font-weight: 700; }
+.cal-day.today .cal-day-num { background: var(--accent-primary); color: #fff; }
+
+/* Capa de barras: no captura clics (los recibe el día que hay debajo) */
+.cal-week-events {
+  position: absolute; left: 0; right: 0; top: 2.2rem; bottom: 0;
+  display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: var(--lane-h); row-gap: var(--lane-gap);
+  padding: 0 0.25rem; pointer-events: none; z-index: 2;   /* por encima del día seleccionado */
+}
+.cal-bar {
+  display: flex; align-items: center; gap: 0.3rem; min-width: 0; margin: 0 1px; padding: 0 0.5rem; overflow: hidden;
+  font-size: 0.72rem; font-weight: 700; white-space: nowrap; color: #fff; background: var(--c); border-radius: 6px;
+}
+.cal-bar-text { overflow: hidden; text-overflow: ellipsis; }
+.cal-bar .icon { flex-shrink: 0; }
+.cal-bar.cont-l { margin-left: -0.25rem; padding-left: 0.75rem; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.cal-bar.cont-r { margin-right: -0.25rem; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+
+.bar-clase { color: color-mix(in srgb, var(--c) 75%, var(--text-primary)); background: color-mix(in srgb, var(--c) 16%, var(--bg-surface)); box-shadow: inset 3px 0 0 var(--c); }
+.bar-clase.cont-l { box-shadow: none; }
+.bar-examen { color: var(--c); background: var(--bg-surface); box-shadow: inset 0 0 0 2px var(--c); }
+
+/* ====================================================================
+   DETALLE DEL DÍA
+   ==================================================================== */
+.day-detail { margin-top: 1rem; padding: 1.1rem 1.25rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); }
+.day-detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.8rem; }
+.day-detail-weekday { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); }
+.day-detail-head h4 { font-size: 1.2rem; }
+.day-hint, .day-empty { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-secondary); }
+.day-next { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; min-height: 0; padding: 0.6rem 0.9rem; font-size: 0.85rem; text-align: left; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+.day-next:hover { border-color: var(--accent-primary); }
+
+.day-events { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.day-event { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; padding: 0.9rem 1rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 4px solid var(--c); border-radius: var(--radius-md); }
+.day-event-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; width: 100%; }
+.day-event-title { font-weight: 700; font-size: 1.02rem; }
+.day-event-meta { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.8rem; color: var(--text-secondary); }
+.day-event-meta span { display: inline-flex; align-items: center; gap: 0.3rem; }
+.day-event-desc { font-size: 0.86rem; line-height: 1.5; color: var(--text-secondary); }
+.day-event .btn { margin-top: 0.3rem; }
+
+/* ====================================================================
+   AGENDA
+   ==================================================================== */
+.deadlines-sidebar { min-width: 0; padding-left: 1.75rem; border-left: 1px solid var(--border-subtle); display: flex; flex-direction: column; }
+.deadlines-title { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 1rem; font-size: 1.2rem; }
+.deadline-feed { display: flex; flex-direction: column; gap: 0.6rem; max-height: 720px; overflow-y: auto; padding-right: 0.4rem; }
+
+.agenda-item {
+  flex-shrink: 0;   /* dentro de la lista con scroll, que no se compriman */
+  display: grid; grid-template-columns: 2.9rem minmax(0, 1fr); align-items: center; gap: 0.75rem;
+  width: 100%; min-height: 0; padding: 0.7rem 0.85rem; text-align: left;
+  background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-left: 4px solid var(--c); border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+.agenda-item:hover { border-color: var(--c); background: color-mix(in srgb, var(--c) 8%, var(--bg-surface)); }
+.agenda-item.active { border-color: var(--c); background: color-mix(in srgb, var(--c) 13%, var(--bg-surface)); box-shadow: var(--shadow-sm); }
+.agenda-date { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+.agenda-date b { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; }
+.agenda-date small { margin-top: 0.2rem; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); }
+.agenda-body { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.agenda-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.45rem; font-size: 0.86rem; }
+.agenda-top .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
+.agenda-title { font-size: 0.85rem; font-weight: 600; }
+.agenda-meta { font-size: 0.75rem; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.agenda-count { margin-left: auto; white-space: nowrap; }
+.agenda-item.type-clase .agenda-title { font-weight: 500; }
+.agenda-past { flex-shrink: 0; }
+.agenda-past summary { cursor: pointer; padding: 0.6rem 0.25rem; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); }
+.agenda-past > .agenda-item { margin-top: 0.6rem; opacity: 0.75; }
+
+/* ====================================================================
+   VISTA CURSO (GANTT)
+   ==================================================================== */
+.gantt-scroll { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); }
+.gantt { min-width: 760px; --label-w: 9.5rem; }
+.gantt-row { display: grid; grid-template-columns: var(--label-w) 1fr; border-top: 1px solid var(--border-subtle); }
+.gantt-row:first-child { border-top: 0; }
+.gantt-head { background: var(--bg-surface-elevated); }
+.gantt-label {
+  position: sticky; left: 0; z-index: 4; display: flex; align-items: center; gap: 0.5rem; padding: 0.7rem 0.9rem;
+  font-size: 0.82rem; font-weight: 700; background: var(--bg-surface); border-right: 1px solid var(--border-subtle);
+}
+.gantt-head .gantt-label { background: var(--bg-surface-elevated); }
+.gantt-label i { flex-shrink: 0; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--c); }
+.gantt-label span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.gantt-track { position: relative; min-height: 2.9rem; }
+.gantt-head .gantt-track { min-height: 2.2rem; }
+.gantt-month { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; padding-left: 0.5rem; overflow: hidden; white-space: nowrap; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary); border-left: 1px solid var(--border-subtle); }
+.gantt-month-line { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border-subtle); }
+.gantt-today { position: absolute; top: 0; bottom: 0; z-index: 2; width: 2px; background: var(--accent-rose); opacity: 0.85; }
+
+.gantt-seg {
+  position: absolute; top: 50%; height: 1.15rem; min-width: 8px; min-height: 0; padding: 0; border: 0; border-radius: 5px;
+  background: var(--c); transform: translateY(-50%); cursor: pointer; transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.gantt-seg.seg-clase { background: color-mix(in srgb, var(--c) 22%, var(--bg-surface)); box-shadow: inset 0 0 0 1.5px var(--c); }
+.gantt-seg:hover { transform: translateY(-50%) scaleY(1.3); box-shadow: var(--shadow-md); z-index: 3; }
+.gantt-flag {
+  position: absolute; top: 50%; z-index: 1; display: flex; align-items: center; justify-content: center; width: 1.55rem; height: 1.55rem; min-height: 0; padding: 0;
+  color: var(--c); background: var(--bg-surface); border: 2px solid var(--c); border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; transition: transform var(--transition-fast);
+}
+.gantt-flag:hover { transform: translate(-50%, -50%) scale(1.2); z-index: 3; }
+.gantt-hint { margin-top: 0.6rem; font-size: 0.8rem; color: var(--text-tertiary); }
+
+/* ====================================================================
+   RESPONSIVE
+   ==================================================================== */
+@media (max-width: 900px) {
+  .calendar-layout { grid-template-columns: 1fr; }
+  .deadlines-sidebar { padding-left: 0; padding-top: 1.5rem; border-left: 0; border-top: 1px solid var(--border-subtle); }
+  .deadline-feed { max-height: 520px; }
+}
+
+@media (max-width: 640px) {
+  .calendar-shell { padding: 1rem; border-radius: var(--radius-lg); }
+  .calendar-toolbar { justify-content: space-between; }
+  .calendar-month-year { order: 3; flex-basis: 100%; font-size: 1.2rem; }
+
+  .cal-month { --lane-h: 0.55rem; --lane-gap: 0.2rem; }
+  .cal-week { min-height: max(3.9rem, calc(2rem + var(--lanes) * (var(--lane-h) + var(--lane-gap)) + 0.5rem)); }
+  .cal-week-events { top: 2rem; padding: 0 0.15rem; }
+  .cal-day { padding: 0.25rem; }
+  .cal-day-num { min-width: 1.4rem; height: 1.4rem; font-size: 0.78rem; }
+  .cal-bar { padding: 0; border-radius: 3px; }
+  .cal-bar-text, .cal-bar .icon { display: none; }
+  .bar-examen { background: var(--c); box-shadow: none; }
+  .bar-clase { box-shadow: none; border: 1px solid var(--c); }
+
+  .day-detail { padding: 1rem; }
+  .agenda-item { grid-template-columns: 2.5rem minmax(0, 1fr); }
+  .gantt { --label-w: 7.5rem; }
+}

@@ -1,0 +1,275 @@
+/* ==========================================================================
+   DOCUMENTOS, BIBLIOTECA, LECTOR Y FICHA DE ASIGNATURA (DOCS.CSS)
+   Se carga después de components.css, así que puede refinar sus reglas.
+   ========================================================================== */
+
+/* ---------------- Tonos por tipo de documento ---------------- */
+.tone-primary { --tone: var(--accent-primary); --tone-bg: var(--accent-primary-light); --tone-border: var(--accent-primary-border); }
+.tone-amber   { --tone: var(--accent-amber);   --tone-bg: var(--accent-amber-light);   --tone-border: var(--accent-amber-border); }
+.tone-emerald { --tone: var(--accent-emerald); --tone-bg: var(--accent-emerald-light); --tone-border: var(--accent-emerald-border); }
+.tone-rose    { --tone: var(--accent-rose);    --tone-bg: var(--accent-rose-light);    --tone-border: var(--accent-rose-border); }
+.tone-cyan    { --tone: var(--accent-cyan);    --tone-bg: var(--accent-cyan-light);    --tone-border: var(--accent-cyan-light); }
+.tone-neutral { --tone: var(--text-secondary); --tone-bg: var(--bg-surface-elevated);  --tone-border: var(--border-subtle); }
+
+.icon-xs { width: 0.75rem; height: 0.75rem; }
+
+/* ---------------- Accesibilidad: foco visible con teclado ---------------- */
+:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+section[id] { scroll-margin-top: 5.5rem; }
+
+/* ---------------- Franja de acceso a la biblioteca (hero) ---------------- */
+.library-banner {
+  display: flex; align-items: center; gap: 1rem; margin-top: 1.25rem; padding: 1.1rem 1.5rem;
+  color: inherit; text-decoration: none;
+  background: linear-gradient(120deg, var(--accent-cyan-light), var(--accent-primary-light));
+  border: 1px solid var(--accent-primary-border); border-radius: var(--radius-lg);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.library-banner:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); color: inherit; }
+.library-banner-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.library-banner-text strong { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 800; line-height: 1.25; }
+.library-banner-cta { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; font-weight: 700; color: var(--accent-primary); white-space: nowrap; }
+
+/* ---------------- Tarjetas de asignatura con color propio ---------------- */
+.subject-card { box-shadow: inset 0 4px 0 var(--subject-color, var(--accent-primary)), var(--shadow-sm); }
+.subject-card:hover { box-shadow: inset 0 4px 0 var(--subject-color, var(--accent-primary)), var(--shadow-md); }
+.subject-badges { display: flex; gap: 0.4rem; align-items: center; }
+.subject-date-row.is-deadline { color: var(--accent-rose); }
+.subject-date-row .icon { margin-top: 2px; }
+
+.subject-docs { margin-bottom: 1.4rem; padding-top: 1rem; border-top: 1px dashed var(--border-medium); }
+.subject-docs-head { display: flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.6rem; }
+
+.progress-line { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem; }
+.progress-track { flex: 1; height: 6px; border-radius: var(--radius-full); background: var(--bg-surface-hover); overflow: hidden; }
+.progress-fill { display: block; height: 100%; background: var(--accent-emerald); border-radius: inherit; transition: width var(--transition-slow); }
+.progress-label { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
+
+.doc-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.doc-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  min-height: 34px; padding: 0.3rem 0.7rem;
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--tone); background: var(--tone-bg); border: 1px solid var(--tone-border);
+  border-radius: var(--radius-full); transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.doc-chip:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.doc-chip b { font-weight: 800; }
+
+/* ---------------- Modal de asignatura ---------------- */
+.modal-header, .modal-progress, .modal-tabs { flex-shrink: 0; }   /* solo el cuerpo hace scroll */
+.modal-tabs { gap: 0.1rem; padding: 0 1.4rem; scrollbar-width: none; }
+.modal-tabs::-webkit-scrollbar { display: none; }
+.modal-tab-btn { padding: 0.85rem 0.8rem; gap: 0.4rem; }
+.modal-progress { padding: 0.9rem 2.25rem 0; background: var(--bg-surface); }
+.modal-progress:empty { display: none; }
+.modal-progress .progress-line { margin: 0 0 0.75rem; }
+.modal-tab-btn .tab-count {
+  font-style: normal; font-size: 0.72rem; font-weight: 700;
+  min-width: 1.35rem; padding: 0.1rem 0.4rem; text-align: center;
+  border-radius: var(--radius-full); background: var(--bg-surface-elevated); color: var(--text-secondary);
+}
+.modal-tab-btn.active .tab-count { background: var(--accent-primary-light); color: var(--accent-primary); }
+
+/* ---------------- Tarjeta de documento ---------------- */
+.doc-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.doc-group { margin-bottom: 1.6rem; }
+.doc-group:last-child { margin-bottom: 0; }
+.doc-group-title { display: flex; align-items: center; gap: 0.5rem; font-size: 0.98rem; color: var(--tone); margin-bottom: 0.7rem; }
+.doc-group-title em { font-style: normal; font-size: 0.72rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: var(--radius-full); background: var(--tone-bg); border: 1px solid var(--tone-border); }
+.doc-subgroup { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin: 0.9rem 0 0.5rem; }
+
+.doc-card {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--tone, var(--border-medium)); border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+}
+.doc-card:hover { border-color: var(--tone); background: var(--bg-surface); box-shadow: var(--shadow-sm); }
+.doc-icon { width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-md); background: var(--tone-bg); color: var(--tone); flex-shrink: 0; }
+.doc-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.5rem; }
+.doc-title { font-size: 0.95rem; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+.doc-tag { font-size: 0.68rem; padding: 0.2rem 0.55rem; }
+.doc-desc { font-size: 0.83rem; color: var(--text-secondary); margin-top: 0.15rem; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.15rem 0.4rem; font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.3rem; }
+.doc-subject { display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 600; color: var(--text-secondary); }
+.doc-subject i { width: 0.55rem; height: 0.55rem; border-radius: 50%; }
+.doc-ext { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.02em; }
+.doc-actions { display: flex; align-items: center; gap: 0.4rem; }
+.doc-actions .icon-btn { width: 2.25rem; height: 2.25rem; min-height: 0; }
+
+.doc-check { color: var(--text-tertiary); }
+.doc-check[aria-pressed="true"] { background: var(--accent-emerald-light); color: var(--accent-emerald); border-color: var(--accent-emerald-border); }
+.doc-card.is-read .doc-title { color: var(--text-secondary); }
+.doc-card.is-read .doc-icon { opacity: 0.6; }
+
+/* ---------------- Biblioteca (sección global) ---------------- */
+.section-library { margin-bottom: 4rem; }
+.library-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-bottom: 1.25rem; }
+.library-search { position: relative; flex: 1 1 340px; display: block; }
+.library-search .icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); pointer-events: none; }
+.library-search input { width: 100%; padding-left: 2.6rem; background: var(--bg-surface); }
+.library-search input:focus { outline: none; border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--accent-primary-light); }
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip {
+  display: inline-flex; align-items: center; gap: 0.45rem; min-height: 38px; padding: 0.35rem 0.9rem;
+  font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);
+  background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+.chip em { font-style: normal; font-size: 0.72rem; font-weight: 700; padding: 0.05rem 0.4rem; border-radius: var(--radius-full); background: var(--bg-surface-elevated); }
+.chip:hover { color: var(--text-primary); border-color: var(--border-medium); }
+.chip.active { background: var(--accent-primary); border-color: var(--accent-primary); color: #fff; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25); }
+.chip.active em { background: rgba(255, 255, 255, 0.22); }
+.library-summary { margin-left: auto; font-size: 0.82rem; color: var(--text-tertiary); }
+
+.lib-group {
+  background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 4px solid var(--subject-color, var(--accent-primary));
+  border-radius: var(--radius-lg); margin-bottom: 0.75rem; overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.lib-group summary {
+  list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem;
+  padding: 1rem 1.25rem; transition: background var(--transition-fast);
+}
+.lib-group summary::-webkit-details-marker { display: none; }
+.lib-group summary:hover { background: var(--bg-surface-elevated); }
+.lib-dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--subject-color); flex-shrink: 0; }
+.lib-name { flex: 1 1 220px; min-width: 0; font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; }
+.lib-count { font-size: 0.8rem; color: var(--text-secondary); white-space: nowrap; }
+.lib-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.mini-chip { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: var(--radius-full); color: var(--tone); background: var(--tone-bg); border: 1px solid var(--tone-border); }
+.mini-chip b { font-weight: 800; margin-left: 0.15rem; }
+.lib-chevron { color: var(--text-tertiary); transition: transform var(--transition-normal); display: flex; }
+.lib-group[open] .lib-chevron { transform: rotate(90deg); }
+.lib-body { padding: 1.1rem 1.25rem 1.25rem; border-top: 1px solid var(--border-subtle); }
+
+/* ---------------- Lector de documentos ---------------- */
+.reader-overlay {
+  position: fixed; inset: 0; z-index: 1150; display: flex; padding: 1rem;
+  background: rgba(15, 23, 42, 0.62); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  opacity: 0; visibility: hidden; transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+.reader-overlay.active { opacity: 1; visibility: visible; }
+.reader-shell {
+  flex: 1; width: 100%; max-width: 1500px; margin: 0 auto; min-height: 0;
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--bg-surface); border: 1px solid var(--border-medium); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+}
+.reader-bar { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface); }
+.reader-titlebox { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.reader-subject { display: flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
+.reader-subject i { width: 0.55rem; height: 0.55rem; border-radius: 50%; }
+.reader-title { font-family: var(--font-heading); font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reader-position { font-size: 0.8rem; color: var(--text-tertiary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.reader-actions { display: flex; align-items: center; gap: 0.4rem; }
+.reader-actions .icon-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.reader-read[aria-pressed="true"] { background: var(--accent-emerald-light); color: var(--accent-emerald); border-color: var(--accent-emerald-border); }
+.reader-stage { flex: 1; min-height: 0; position: relative; display: flex; background: var(--bg-surface-elevated); overflow: auto; }
+.reader-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
+.reader-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; color: var(--text-secondary); font-size: 0.9rem; }
+.spinner { width: 2rem; height: 2rem; border: 3px solid var(--border-medium); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.reader-image-wrap { margin: auto; padding: 1rem; }
+.reader-image { max-width: 100%; height: auto; border-radius: var(--radius-sm); box-shadow: var(--shadow-md); }
+.reader-text { margin: 0; padding: 1.25rem 1.5rem; width: 100%; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.55; white-space: pre; overflow: auto; background: var(--bg-surface); color: var(--text-primary); }
+.reader-fallback { margin: auto; max-width: 460px; padding: 2.5rem 1.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.reader-fallback p { color: var(--text-secondary); font-size: 0.92rem; }
+.reader-fallback-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-top: 0.5rem; }
+
+/* ---------------- Ficha / guía de asignatura ---------------- */
+.guide { display: flex; flex-direction: column; gap: 1.6rem; }
+.guide h4 { display: flex; align-items: center; gap: 0.5rem; font-size: 1.02rem; margin-bottom: 0.6rem; }
+.guide h4 .icon { color: var(--accent-primary); }
+.guide-text { color: var(--text-secondary); font-size: 0.92rem; }
+.guide-dates { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.6rem; }
+.guide-date { display: flex; gap: 0.6rem; padding: 0.8rem 1rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); font-size: 0.85rem; }
+.guide-date .icon { margin-top: 3px; }
+.guide-date strong, .guide-exam strong { display: block; font-size: 0.82rem; }
+.guide-date span, .guide-exam span { display: block; color: var(--text-secondary); }
+.guide-exam { display: flex; gap: 0.65rem; margin-top: 0.75rem; padding: 0.8rem 1rem; font-size: 0.85rem; background: var(--accent-rose-light); border: 1px solid var(--accent-rose-border); border-radius: var(--radius-md); }
+.guide-exam > .icon { color: var(--accent-rose); margin-top: 3px; }
+.guide-exam strong { display: inline; }
+.guide-list { padding-left: 1.25rem; color: var(--text-secondary); font-size: 0.9rem; }
+.guide-list li { margin-bottom: 0.35rem; }
+.eval-list { display: flex; flex-direction: column; gap: 0.7rem; }
+.eval-row { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.86rem; font-weight: 600; margin-bottom: 0.25rem; }
+.eval-track { height: 6px; background: var(--bg-surface-hover); border-radius: var(--radius-full); overflow: hidden; }
+.eval-fill { height: 100%; background: var(--accent-primary); border-radius: inherit; }
+.guide-biblio { font-size: 0.88rem; color: var(--text-secondary); background: var(--bg-surface-elevated); padding: 0.9rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+
+/* ---------------- Panel "Subir documentos" ---------------- */
+.upload-pane { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+.upload-intro { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; }
+.upload-dests { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 0.6rem; }
+.upload-dest {
+  display: flex; align-items: center; gap: 0.75rem; min-width: 0; padding: 0.8rem 1rem; color: var(--text-primary); text-decoration: none;
+  background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-left: 3px solid var(--tone, var(--border-medium)); border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+.upload-dest:hover { border-color: var(--tone); background: var(--bg-surface); box-shadow: var(--shadow-sm); color: var(--text-primary); }
+.upload-dest > .icon { color: var(--text-tertiary); margin-left: auto; }
+.upload-dest-text { display: flex; flex-direction: column; min-width: 0; }
+.upload-dest-text strong { font-size: 0.92rem; }
+.upload-dest-text small { font-size: 0.72rem; color: var(--text-tertiary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.upload-dest em { font-style: normal; font-size: 0.72rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
+.upload-notes { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.84rem; color: var(--text-secondary); }
+.upload-notes li { display: flex; gap: 0.55rem; align-items: flex-start; }
+.upload-notes li > span { min-width: 0; overflow-wrap: anywhere; }
+.upload-notes .icon { margin-top: 3px; color: var(--accent-primary); }
+.upload-notes code, .upload-intro code { font-family: var(--font-mono); font-size: 0.78rem; padding: 0.1rem 0.35rem; border-radius: 4px; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); }
+
+/* ---------------- Buscador global (Ctrl+K) ---------------- */
+.command-heading { padding: 0.55rem 0.9rem 0.3rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-tertiary); }
+.command-item { color: var(--text-primary); }
+.command-item.active { background: var(--bg-surface-elevated); box-shadow: inset 3px 0 0 var(--accent-primary); }
+.command-dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; flex-shrink: 0; }
+.command-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.command-sub { font-size: 0.75rem; color: var(--text-tertiary); white-space: nowrap; }
+.command-empty { padding: 1.5rem; text-align: center; color: var(--text-tertiary); font-size: 0.9rem; }
+
+/* ---------------- Herramientas: pequeños ajustes (antes eran estilos en línea) ---------------- */
+.calc-weight-pct { font-size: 0.8rem; color: var(--text-tertiary); }
+.todo-item.is-done { opacity: 0.55; }
+.todo-item.is-done .todo-text { text-decoration: line-through; }
+.todo-empty { text-align: center; padding: 1.5rem; color: var(--text-tertiary); font-size: 0.85rem; }
+.todo-delete { width: 2rem; height: 2rem; min-height: 0; border: none; }
+
+/* ---------------- Responsive ---------------- */
+.nav-link { white-space: nowrap; }
+@media (max-width: 1000px) {
+  .nav-link { padding: 0.5rem 0.7rem; font-size: 0.85rem; }
+  .brand-text span { display: none; }
+}
+
+@media (max-width: 768px) {
+  .modal-header { padding: 1.1rem 1.25rem 0.75rem; }
+  .modal-title { font-size: 1.2rem; margin-bottom: 0.25rem; }
+  .modal-prof-meta { margin-top: 0.4rem; }
+  .modal-prof-item:not(:first-child) { display: none; }   /* correo, lugar y tutorías están en la pestaña "Guía" */
+  .modal-tabs { padding: 0 0.75rem; }
+  .modal-progress { padding: 0.7rem 1.25rem 0; }
+  .mobile-nav-item { padding: 0.4rem 0.2rem; font-size: 0.68rem; }
+  .library-banner { padding: 1rem; }
+  .library-banner-cta span { display: none; }
+
+  .reader-overlay { padding: 0; }
+  .reader-shell { border-radius: 0; border: 0; }
+  .reader-position, .reader-read span { display: none; }
+}
+
+@media (max-width: 600px) {
+  .doc-card { grid-template-columns: auto minmax(0, 1fr); gap: 0.75rem; }
+  .doc-actions { grid-column: 1 / -1; justify-content: flex-end; }
+  .doc-actions .btn-primary { flex: 1; }
+  .upload-dests { grid-template-columns: minmax(0, 1fr); }
+  .upload-dest em { display: none; }
+  .lib-group summary { padding: 0.9rem 1rem; }
+  .lib-chips { display: none; }
+  .lib-body { padding: 1rem; }
+  .library-summary { margin-left: 0; width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

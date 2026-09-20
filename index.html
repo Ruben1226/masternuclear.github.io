@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Máster en Física Nuclear - UCM</title>
+  <meta name="description" content="Portal de estudio y cronograma del Máster Interuniversitario en Física Nuclear en la Universidad Complutense de Madrid.">
+  <!-- Apuntes personales: pide a los buscadores que no indexen la web. Quita esta línea si quieres que aparezca en Google. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Preconexión a Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Hojas de estilo -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/docs.css">
+  <link rel="stylesheet" href="css/calendar.css">
+</head>
+<body>
+
+  <!-- ====================================================================
+       1. NAVBAR SUPERIOR
+       ==================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#dashboard" class="brand">
+        <div class="brand-icon">
+          <!-- Icono de átomo / física nuclear -->
+          <svg class="icon icon-lg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"></circle>
+            <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"></ellipse>
+            <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"></ellipse>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Física Nuclear</h1>
+          <span>UCM · Curso 2026 - 2027</span>
+        </div>
+      </a>
+
+      <!-- Menú Desktop -->
+      <nav class="nav-desktop">
+        <a href="#dashboard" class="nav-link active">Resumen</a>
+        <a href="#asignaturas" class="nav-link">Asignaturas</a>
+        <a href="#biblioteca" class="nav-link">Biblioteca</a>
+        <a href="#calendario" class="nav-link">Calendario</a>
+        <a href="#enlaces" class="nav-link">Enlaces UCM</a>
+        <a href="#herramientas" class="nav-link">Herramientas</a>
+      </nav>
+
+      <!-- Acciones Rápidas -->
+      <div class="header-actions">
+        <button id="btn-open-search" class="icon-btn" title="Buscar recurso (Ctrl + K)">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+
+        <button id="btn-theme-toggle" class="icon-btn" title="Alternar tema claro / oscuro">
+          <span class="theme-icon-slot">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================================================================
+       CONTENIDO PRINCIPAL
+       ==================================================================== -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- ---------------- SECCIÓN 1: RESUMEN / HERO LUMINOSO ---------------- -->
+      <section id="dashboard" class="master-hero">
+        <div class="hero-banner">
+          <div class="hero-meta-tags">
+            <span class="badge badge-blue" id="master-university">Universidad Complutense de Madrid</span>
+            <span class="badge badge-emerald" id="master-year">2026 - 2027</span>
+            <span class="badge badge-neutral">Interuniversitario</span>
+          </div>
+          
+          <h2 class="hero-title" id="master-title">Máster en Física Nuclear</h2>
+          <p class="hero-subtitle" id="master-subtitle">Portal académico con tu plan docente oficial: 3 materias obligatorias, 5 optativas seleccionadas y Trabajo Fin de Máster en la UCM.</p>
+
+          <!-- Métricas Clave y Sedes -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon-wrap" style="background: var(--accent-primary-light); color: var(--accent-primary);">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              </div>
+              <div>
+                <span class="stat-label">Plan de Estudios</span>
+                <div class="stat-value" id="stat-total-credits">60 ECTS</div>
+                <span class="stat-subtext">18 Ob + 18 Op + 24 TFM</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap" style="background: var(--accent-emerald-light); color: var(--accent-emerald);">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              </div>
+              <div>
+                <span class="stat-label">Tus Materias</span>
+                <div class="stat-value" id="stat-total-subjects">8 + TFM</div>
+                <span class="stat-subtext">3 Obligatorias · 5 Optativas</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap" style="background: var(--accent-rose-light); color: var(--accent-rose);">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div>
+                <span class="stat-label">Próximo Hito</span>
+                <div class="stat-value" id="stat-next-deadline" style="color: var(--accent-rose);">5 Octubre</div>
+                <span class="stat-subtext" id="stat-next-deadline-sub">Estructura Nuclear</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrap" style="background: var(--accent-amber-light); color: var(--accent-amber);">
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
+              <div>
+                <span class="stat-label">Sedes del Curso</span>
+                <div class="stat-value" style="font-size: 1.15rem; color: var(--text-primary);">Madrid, Sevilla...</div>
+                <span class="stat-subtext">Granada, Salamanca, BCN</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acceso destacado a la biblioteca de documentos -->
+          <a href="#biblioteca" class="library-banner">
+            <div class="stat-icon-wrap" style="background: var(--accent-cyan-light); color: var(--accent-cyan);">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <div class="library-banner-text">
+              <span class="stat-label">Biblioteca de documentos</span>
+              <strong id="stat-docs">—</strong>
+              <span class="stat-subtext" id="stat-docs-sub"></span>
+            </div>
+            <span class="library-banner-cta">
+              <span>Abrir biblioteca</span>
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ---------------- SECCIÓN 2: ASIGNATURAS ---------------- -->
+      <section id="asignaturas" class="section-subjects">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              <span>Tus Asignaturas</span>
+            </h2>
+            <p>Consulta las semanas intensivas, sedes y accede a los apuntes, ejercicios y modelos de examen.</p>
+          </div>
+
+          <!-- Filtros Claros -->
+          <div class="filter-bar">
+            <button class="filter-btn active" data-filter="todas">Todas</button>
+            <button class="filter-btn" data-filter="obligatorias">Obligatorias (3)</button>
+            <button class="filter-btn" data-filter="optativas">Optativas (5)</button>
+            <button class="filter-btn" data-filter="tfm">TFM (24 ECTS)</button>
+          </div>
+        </div>
+
+        <!-- Grid de Tarjetas Limpias -->
+        <div class="subjects-grid" id="subjects-grid">
+          <!-- Renderizado dinámicamente desde data.js -->
+        </div>
+      </section>
+
+      <!-- ---------------- SECCIÓN 3: BIBLIOTECA DE DOCUMENTOS ---------------- -->
+      <section id="biblioteca" class="section-library">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>
+              <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              <span>Biblioteca de documentos</span>
+            </h2>
+            <p>Todos los apuntes, problemas, prácticas y exámenes de tus carpetas: léelos aquí mismo o descárgalos. Las carpetas vacías no aparecen.</p>
+          </div>
+        </div>
+
+        <div class="library-tools">
+          <label class="library-search">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="search" id="library-search" placeholder="Buscar por título, asignatura o tipo (ej.: examen 2019, Monte Carlo)…" autocomplete="off" aria-label="Buscar documentos">
+          </label>
+          <div class="chip-row" id="library-chips" role="group" aria-label="Filtrar por tipo"></div>
+          <span class="library-summary" id="library-summary" aria-live="polite"></span>
+        </div>
+
+        <div class="library-list" id="library-list">
+          <!-- Renderizado por docs.js -->
+        </div>
+      </section>
+
+      <!-- ---------------- SECCIÓN 4: CALENDARIO & CRONOGRAMA ---------------- -->
+      <section id="calendario" class="section-calendar">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>
+              <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span>Calendario & Semanas Intensivas</span>
+            </h2>
+            <p>Fases a distancia, semanas presenciales en cada sede y límites de examen, con un color por asignatura.</p>
+          </div>
+          <div>
+            <button id="btn-export-calendar" class="btn btn-secondary btn-sm">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Exportar (.ics al móvil)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="calendar-shell">
+          <div class="calendar-toolbar">
+            <div class="seg-control" id="cal-view-switch" role="group" aria-label="Vista del calendario">
+              <button type="button" class="active" data-view="mes" aria-pressed="true">Mes</button>
+              <button type="button" data-view="curso" aria-pressed="false">Curso</button>
+            </div>
+            <h3 class="calendar-month-year" id="calendar-month-year">Octubre 2026</h3>
+            <div class="cal-nav" id="cal-nav">
+              <button type="button" class="icon-btn" id="btn-prev-month" title="Mes anterior" aria-label="Mes anterior">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-today">Hoy</button>
+              <button type="button" class="icon-btn" id="btn-next-month" title="Mes siguiente" aria-label="Mes siguiente">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="cal-legend" id="cal-legend"><!-- Renderizado por calendar.js --></div>
+
+          <div class="calendar-layout">
+            <div class="calendar-main">
+              <div id="calendar-month-container"><!-- Renderizado por calendar.js --></div>
+              <div class="day-detail" id="calendar-day-detail" aria-live="polite"></div>
+            </div>
+
+            <aside class="deadlines-sidebar">
+              <h3 class="deadlines-title">
+                <span>Agenda del curso</span>
+                <span class="badge badge-neutral">Cronológico</span>
+              </h3>
+              <div class="deadline-feed" id="deadlines-feed-container"><!-- Renderizado por calendar.js --></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------- SECCIÓN 5: ENLACES UCM ---------------- -->
+      <section id="enlaces" class="section-links">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>
+              <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              <span>Enlaces Útiles UCM & Investigación</span>
+            </h2>
+            <p>Acceso directo al Campus Virtual, web oficial del máster, bibliotecas e instalaciones de investigación.</p>
+          </div>
+        </div>
+
+        <div id="links-categories-wrap">
+          <!-- Renderizado dinámicamente desde data.js -->
+        </div>
+      </section>
+
+      <!-- ---------------- SECCIÓN 6: HERRAMIENTAS ---------------- -->
+      <section id="herramientas" class="section-tools">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>
+              <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <span>Herramientas Prácticas de Estudio</span>
+            </h2>
+            <p>Calcula tus notas ponderadas con las fórmulas oficiales del máster y gestiona tus tareas pendientes.</p>
+          </div>
+        </div>
+
+        <div class="tools-grid">
+          <!-- Calculadora Oficial de Notas -->
+          <div class="tool-panel">
+            <h3 class="tool-panel-title">
+              <svg class="icon" style="color: var(--accent-emerald);" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="14.01"></line><line x1="12" y1="14" x2="12" y2="14.01"></line><line x1="8" y1="14" x2="8" y2="14.01"></line><line x1="16" y1="18" x2="16" y2="18.01"></line><line x1="12" y1="18" x2="12" y2="18.01"></line><line x1="8" y1="18" x2="8" y2="18.01"></line></svg>
+              <span>Calculadora de Ponderación</span>
+            </h3>
+            <p class="tool-panel-desc">Selecciona la materia para calcular tu calificación ponderada según los criterios de la guía docente.</p>
+
+            <div style="margin-bottom: 1rem;">
+              <select id="calc-subject-select" class="btn-block" style="background: var(--bg-surface-elevated);">
+                <!-- Añadido por app.js -->
+              </select>
+            </div>
+
+            <div class="calc-weights-list" id="calc-weights-list">
+              <!-- Inputs de notas -->
+            </div>
+
+            <div class="calc-result-box">
+              <div>
+                <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">Calificación Final</span>
+                <div>
+                  <span id="calc-status-badge" class="badge badge-blue">Aprobado</span>
+                </div>
+              </div>
+              <div class="calc-score-big" id="calc-final-score">0.00</div>
+            </div>
+          </div>
+
+          <!-- To-Do List Ligera -->
+          <div class="tool-panel">
+            <h3 class="tool-panel-title">
+              <svg class="icon" style="color: var(--accent-primary);" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+              <span>Tareas y Recordatorios Rápidos</span>
+            </h3>
+            <p class="tool-panel-desc">Guarda notas personales en el navegador (se mantienen al cerrar la web).</p>
+
+            <form id="todo-form" class="todo-input-form">
+              <input type="text" id="todo-input" style="flex: 1; background: var(--bg-surface-elevated);" placeholder="Ej: Entregar memoria de lab L1..." required>
+              <button type="submit" class="btn btn-primary btn-sm">Añadir</button>
+            </form>
+
+            <div class="todo-list" id="todo-list">
+              <!-- Lista de tareas -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ====================================================================
+       BARRA DE NAVEGACIÓN INFERIOR PARA TELÉFONOS MÓVILES
+       ==================================================================== -->
+  <nav class="mobile-bottom-nav">
+    <a href="#dashboard" class="mobile-nav-item active">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Inicio</span>
+    </a>
+    <a href="#asignaturas" class="mobile-nav-item">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Materias</span>
+    </a>
+    <a href="#biblioteca" class="mobile-nav-item">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+      <span>Docs</span>
+    </a>
+    <a href="#calendario" class="mobile-nav-item">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span>Calendario</span>
+    </a>
+    <a href="#enlaces" class="mobile-nav-item">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+      <span>Enlaces</span>
+    </a>
+    <a href="#herramientas" class="mobile-nav-item">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <span>Notas</span>
+    </a>
+  </nav>
+
+  <!-- ====================================================================
+       MODAL PANORÁMICO DE ASIGNATURA
+       ==================================================================== -->
+  <div class="modal-overlay" id="subject-modal" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header-top">
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="badge badge-blue" id="modal-subject-code">FN-OB1</span>
+            <span class="badge badge-neutral" id="modal-subject-ects">6 ECTS</span>
+          </div>
+          <button id="btn-close-modal" class="modal-close-btn" title="Cerrar ventana">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <h3 class="modal-title" id="modal-subject-title">Nombre Asignatura</h3>
+
+        <div class="modal-prof-meta">
+          <div class="modal-prof-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <strong id="modal-prof-name">Profesor</strong>
+          </div>
+          <div class="modal-prof-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span id="modal-prof-email">email</span>
+          </div>
+          <div class="modal-prof-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span id="modal-prof-office">Despacho</span>
+          </div>
+          <div class="modal-prof-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span id="modal-prof-tutoring">Tutorías</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="modal-progress" class="modal-progress"></div>
+
+      <!-- Pestañas y paneles: los genera app.js con SOLO las categorías que tienen archivos -->
+      <div class="modal-tabs" id="modal-tabs" role="tablist"></div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       LECTOR DE DOCUMENTOS (PDF, imágenes, código)
+       ==================================================================== -->
+  <div class="reader-overlay" id="doc-reader" role="dialog" aria-modal="true" aria-label="Lector de documentos">
+    <div class="reader-shell">
+      <header class="reader-bar">
+        <button type="button" class="icon-btn" id="reader-close" title="Cerrar (Esc)" aria-label="Cerrar lector">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="reader-titlebox">
+          <span class="reader-subject" id="reader-subject"></span>
+          <strong class="reader-title" id="reader-title"></strong>
+        </div>
+        <span class="reader-position" id="reader-position"></span>
+        <div class="reader-actions">
+          <button type="button" class="icon-btn" id="reader-prev" title="Documento anterior (←)" aria-label="Documento anterior">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button type="button" class="icon-btn" id="reader-next" title="Documento siguiente (→)" aria-label="Documento siguiente">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm reader-read" id="reader-read" aria-pressed="false">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Marcar leído</span>
+          </button>
+          <a class="icon-btn" id="reader-open" href="#" target="_blank" rel="noopener" title="Abrir en pestaña nueva" aria-label="Abrir en pestaña nueva">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+          <a class="icon-btn" id="reader-download" href="#" download title="Descargar" aria-label="Descargar">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </a>
+        </div>
+      </header>
+      <div class="reader-stage" id="reader-stage"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL DE BÚSQUEDA RÁPIDA (CTRL+K)
+       ==================================================================== -->
+  <div class="command-palette-overlay" id="command-palette-modal">
+    <div class="command-palette-box">
+      <div class="command-palette-search">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="command-search-input" class="command-palette-input" placeholder="Buscar asignatura, documento, examen…" autocomplete="off">
+        <span style="font-size: 0.72rem; color: var(--text-tertiary); font-family: var(--font-mono);">ESC</span>
+      </div>
+      <div class="command-results-list" id="command-results"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       FOOTER
+       ==================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>Máster Interuniversitario en Física Nuclear</strong> · Sede UCM (Facultad de Ciencias Físicas)</p>
+        <p style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.2rem;">Portal de estudio personal preparado para GitHub Pages.</p>
+      </div>
+      <div>
+        <a href="#dashboard" class="btn btn-secondary btn-sm">Volver arriba ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/docs-manifest.js"></script>  <!-- generado por tools/generar-manifiesto.mjs -->
+  <script src="js/docs-meta.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/docs.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

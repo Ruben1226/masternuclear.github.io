@@ -1,0 +1,14 @@
+# Archivos que GitHub rechaza (límite de 100 MB por archivo) o que no deben publicarse
+*.zip
+*.rar
+*.7z
+
+# Basura del sistema y de editores
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
+node_modules/
+
+# Configuración local de Claude Code
+.claude/
